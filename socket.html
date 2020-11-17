@@ -1,0 +1,79 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="blog.css">
+        
+    </head>
+    <body>
+        <h1>What is a socket?</h1>
+        <p>It is an endpoint of a two-way communication link between two programs running on the network.<br>
+            An endpoint is a combination of an IP address and a port number.</p>
+        <h1>Socket Programming<br></h1>
+        <p>Socket programming is a way of connecting two nodes on a network to communicate with each other. One socket(node) listens on a particular port at an IP, while other socket reaches out to the other to form a connection. Server forms the listener socket while client reaches out to the server.
+        They are the real backbones behind web browsing. In simpler terms there is a server and a client.<br><br>
+        First step to do is importing library and making a socket<br></p>
+
+        <div>   <code>import socket<br>
+            s = socket.socket() </code></div>
+            <h1>For server side:</h1>
+            <div id="steps">1. Connect to the incoming connection of a client.<br>
+                2. Listen their message<br>
+                3. Send your response.<br>
+                4. Close the connection.<br></div>
+            
+        <br><br>
+        <div id="stars">Before going to the first step in server(i.e., connect to incoming connection) we need to make a connect by server.
+        It is done by using connect() method where we'll pass IP address of server and port number of client as it's parameters.
+        s.connect((host_ip, port))</div>
+        <ul>
+            <li> Step1 can be done by using bind() method 
+                Syntax:
+                    s.bind(('', port))
+                *We can leave first parameter as empty string this makes the server listen to requests coming from other computers on the network</li>
+            <li>Step2 can be done by listen() method and then we can establish connection by accept() method.</li>
+            <li>Step3 can be done by using send() method.</li>
+            <li>Step4-->close()</li>
+        </ul>
+        <h2>And here is the sample of server program</h2>
+
+
+        <div><code>import socket<br>
+        host=socket.gethostname()<br>
+        port=5000<br>
+        server_socket=socket.socket()<br>
+        server_socket.bind((host,port))<br>
+        server_socket.listen(2) # 2 client<br>
+        conn,address=server_socket.accept()<br>
+        print('Connection from'+str(address))<br>
+        while True:<br>
+	        &ensp;data=conn.recv(1024).decode()<br>
+	        &ensp;if not data:<br>
+            &ensp;&ensp;   break<br>
+	        &ensp;print('from client..'+str(data))<br>
+	        &ensp;data=input('->')<br>
+	        &ensp;conn.send(data.encode())<br>
+        conn.close()<br>
+    </code> </div>
+    
+        <h1>For client side:</h1>
+       <div id="steps"> first we have to make a connection which is done before.<br>
+        And then all we have to do is sending and recieving data.</div>
+
+        <h2>Sample code for client:</h2>
+        <div><code>
+            import socket<br>
+            host=socket.gethostname()<br>
+            port=5000<br>
+            client_socket=socket.socket()<br>
+            client_socket.connect((host,port))<br>
+            message=input('->')<br>
+            while message.lower().strip()!='bye':<br>
+            &ensp;    client_socket.send(message.encode())<br>
+            &ensp;    data=client_socket.recv(1024).decode()<br>
+            &ensp;    print('Data from server'+data)<br>
+            &ensp;    message=input('->')<br>
+            client_socket.close()<br>
+        </code></div>
+                
+
+    </body>
+</html>

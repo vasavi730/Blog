@@ -1,0 +1,25 @@
+<html>
+    <head><link rel="stylesheet" href="blog.css"></head>
+    <body>
+        <p>We will use smtp module here.</p>
+        <ul>
+            <li>Step 1: First create an smtp object with sender's mail and default value 587.</li>
+            <li>Step 2: Start the tls protocol</li>
+            <li>Step 3: For authentication we have to login to our gmail account, for that we'll use login function.</li>
+            <li>Step 4: Sending mail</li>
+        </ul>
+        <h2>Here is the sample code,</h2>
+        <div><code>
+            import smtplib<br>
+            s=smtplib.SMTP('sender_mail',587)<br>
+            #start tls<br>
+            s.starttls()<br>
+            # authenticate<br>
+            s.login('sender_mail','sender_password')<br>
+            message=input('hello')<br>
+            s.sendmail('sender_mail','reciever_mail',message)<br>
+            print('Mail send')<br>
+            s.quit()<br>
+        </code></div>
+    </body>
+</html>
